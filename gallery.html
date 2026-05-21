@@ -13,75 +13,7 @@
 </head>
 <body>
 
-    <div id="galleryModal" class="custom-modal" onclick="closeModal()">
-        <span class="close-btn" onclick="closeModal(); event.stopPropagation();">&times;</span>
-        <img class="modal-content" id="imgFull" alt="Preview Ukuran Penuh">
-    </div>
-
-    <nav class="container-navbar">
-        <div class="nav-left">
-            <a href="index.html" class="logo-link">
-                <img src="logo.png" class="logo" alt="Logo"> 
-                <span class="brand-text">ELTRI PROJECT</span>
-            </a>
-        </div>
-
-        <div class="nav-right">
-            <ul class="ul-navbar" id="nav-links">
-                <li><a href="index.html" class="menu-item-btn btn-gahar"><i class="fas fa-home"></i> HOME</a></li>
-                <li class="mobile-only"><a href="gallery.html" class="menu-item-btn active-btn btn-gahar"><i class="fas fa-images"></i> GALLERY</a></li>
-                <li><a href="proyek.html" class="menu-item-btn btn-gahar"><i class="fas fa-user"></i> PUBLIC PROFILE</a></li>
-            </ul>
-            
-            <div class="menu-toggle" id="mobile-menu" onclick="toggleMenu(); event.stopPropagation();">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
-        </div>
-    </nav>
-
-    <main class="gallery-container">
-        <header class="gallery-header">
-            <h1>MY <span>GALLERY</span></h1>
-            <p>Koleksi documentation, proyek gahar, dan karya terbaik dari ELTRI PROJECT.</p>
-        </header>
-
-        <section class="gallery-grid">
-            <div class="gallery-card">
-                <div class="card-img-wrapper">
-                    <img src="foto1.jpg" alt="Lokasi Makassar" onclick="openModal(this.src)">
-                </div>
-                <div class="card-info">
-                    <h3>LOKASI: MAKASSAR</h3>
-                    <p>Lokasi: Makassar Sudut pandang sinematik jalanan kota 15/05,mei,2026</p>
-                </div>
-            </div>
-
-            <div class="gallery-card">
-                <div class="card-img-wrapper">
-                    <img src="foto2.jpg" alt="Lokasi Makassar" onclick="openModal(this.src)">
-                </div>
-                <div class="card-info">
-                    <h3>LOKASI: MAKASSAR</h3>
-                    <p>jalan bendara 20/05,mei 2026</p>
-                </div>
-            </div>
-
-            <div class="gallery-card">
-                <div class="card-img-wrapper">
-                    <img src="foto3.jpg" alt="SMAKARA" onclick="openModal(this.src)">
-                </div>
-                <div class="card-info">
-                    <h3>LOKASI: SMAKARA</h3>
-                    <p>SAYA FOTO PAKAI CAMERA SMAKARA 07/12,DESEMBER,2018</p>
-                </div>
-            </div>
-        </section>
-    </main>
-
     <script>
-    // System buka tutup menu HP
     function toggleMenu() {
         const menu = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
@@ -91,7 +23,6 @@
         }
     }
 
-    // System preview foto fullscreen modal
     function openModal(imageSrc) {
         var modal = document.getElementById("galleryModal");
         var modalImg = document.getElementById("imgFull");
@@ -108,7 +39,6 @@
         }
     }
 
-    // SECURITY LOCK ANTI MALING KODE ELTRI
     document.addEventListener('contextmenu', function(e) {
         if (e.target.tagName !== 'IMG') {
             e.preventDefault();
@@ -122,7 +52,12 @@
              alert('Fitur Inspect Element Dikunci, Bang! 🦾🛡️');
         }
     });
+    
     </script>
-    <script src="js/script.js"></script>
+<div id="root"></div>
+
+    <script src="js/gallery.obfuscated.js"></script>
+    <script src="js/script.obfuscated.js"></script>
+    
 </body>
 </html>
