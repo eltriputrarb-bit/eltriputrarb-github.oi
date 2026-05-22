@@ -13,7 +13,7 @@
 </head>
 <body>
 
-    <script>
+   <script>
     function toggleMenu() {
         const menu = document.getElementById('mobile-menu');
         const navLinks = document.getElementById('nav-links');
@@ -40,19 +40,55 @@
     }
 
     document.addEventListener('contextmenu', function(e) {
-        if (e.target.tagName !== 'IMG') {
+        e.preventDefault();
+        alert("❌ SECURITY PROTOCOL: Hak Akses Hanya Untuk Master Eltri!");
+    });
+
+
+    document.addEventListener('selectstart', function(e) {
+        e.preventDefault();
+    });
+
+
+    document.addEventListener('keydown', function(e) {
+
+        if (e.keyCode === 123) {
             e.preventDefault();
-            alert('Sistem keamanan Anti-Error! Dilarang mencuri kodingan ELTRI PROJECT!');
+            alert("🛡️ ELTRI SHIELD: Akses F12 Developer Tools Dikunci!");
+            return false;
+        }
+
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+            e.preventDefault();
+            alert("🛡️ ELTRI SHIELD: Fitur Inspect Element Dikunci!");
+            return false;
+        }
+
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+            e.preventDefault();
+            alert("🛡️ ELTRI SHIELD: Fitur Console Dikunci!");
+            return false;
+        }
+
+        if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+            e.preventDefault();
+            alert("🛡️ ELTRI SHIELD: Fitur Element Selector Dikunci!");
+            return false;
+        }
+
+        if (e.ctrlKey && e.keyCode === 85) {
+            e.preventDefault();
+            alert("🛡️ ELTRI SHIELD: Dilarang Mengintip Source Code Utama!");
+            return false;
+        }
+
+        if (e.ctrlKey && e.keyCode === 83) {
+            e.preventDefault();
+            alert("🛡️ ELTRI SHIELD: Dilarang Mendownload Halaman Ini!");
+            return false;
         }
     });
 
-    document.addEventListener('keydown', function(e) {
-        if (e.key === "F12" || (e.ctrlKey && e.shiftKey && e.key === "I") || (e.ctrlKey && e.key === "U")) {
-             e.preventDefault();
-             alert('Fitur Inspect Element Dikunci, Bang! 🦾🛡️');
-        }
-    });
-    
     </script>
 <div id="root"></div>
 
