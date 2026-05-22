@@ -10,16 +10,40 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
-    <link rel="stylesheet" href="css/style.min.css">
-    <link rel="stylesheet" href="css/gallery.min.css">
+    <link rel="stylesheet" href="css/style.ndbxjda.css">
+    <link rel="stylesheet" href="css/gallery.NKDNEMS.css">
 </head>
 <body>
 
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const navLinks = document.getElementById('nav-links');
+            if(menu && navLinks) {
+                menu.classList.toggle('is-active');
+                navLinks.classList.toggle('active');
+            }
+        }
 
+        document.addEventListener('contextmenu', function(e) {
+            if (e.target.tagName !== 'IMG') {
+                e.preventDefault();
+                alert('Sistem keamanan Anti-Error! Dilarang mencuri kodingan ELTRI PROJECT!');
+            }
+        });
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === "F12" || 
+                (e.ctrlKey && e.shiftKey && e.key === "I") || 
+                (e.ctrlKey && e.shiftKey && e.key === "C") || 
+                (e.ctrlKey && e.key === "U")) {
+                e.preventDefault();
+                alert('Fitur Inspect Element Dikunci, Bang! 🦾🛡️');
+            }
+        });
+</script>
 <div id="root"></div>
-
-    <script src="js/proyek.obfuscated.js"></script>
-    <script src="js/script.obfuscated.js"></script>
-    
+        <script src="js/proyek.Zsneks.js"></script>
+        <script src="js/script.dbcsje.js"></script>
 </body>
 </html>
