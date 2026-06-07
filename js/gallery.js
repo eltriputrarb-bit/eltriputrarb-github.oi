@@ -63,6 +63,16 @@ document.getElementById('root').innerHTML = `
 
            <div class="gallery-card">
                 <div class="card-img-wrapper">
+                    <img src="image/foto10.jpg" alt="Lokasi Makassar" class="clickable-media">
+                </div>
+                <div class="card-info">
+                    <h3>07/06,juni,2026</h3>
+                    <p>toraja</p>
+                </div>
+            </div>        
+
+           <div class="gallery-card">
+                <div class="card-img-wrapper">
                     <img src="image/foto9.jpg" alt="Lokasi Makassar" class="clickable-media">
                 </div>
                 <div class="card-info">
