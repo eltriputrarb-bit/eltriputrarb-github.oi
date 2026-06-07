@@ -61,6 +61,16 @@ document.getElementById('root').innerHTML = `
 
         <section class="gallery-grid">
 
+           <div class="gallery-card">
+                <div class="card-img-wrapper">
+                    <img src="image/foto9.jpg" alt="Lokasi Makassar" class="clickable-media">
+                </div>
+                <div class="card-info">
+                    <h3>07/06,juni,2026</h3>
+                    <p>Lokasi: di makale, tana toraja</p>
+                </div>
+            </div>
+            
             <div class="gallery-card">
                 <div class="card-img-wrapper">
                 <video src="video/perumtel.mp4" autoplay muted loop playsinline controlsList="nodownload" class="clickable-media"></video>
