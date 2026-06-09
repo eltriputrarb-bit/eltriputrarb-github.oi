@@ -61,6 +61,16 @@ document.getElementById('root').innerHTML = `
 
         <section class="gallery-grid">
 
+            <div class="gallery-card">
+                <div class="card-img-wrapper">
+                <video src="video/Nostalgia.mp4" autoplay muted loop playsinline controlsList="nodownload" class="clickable-media"></video>
+                </div>
+                <div class="card-info">
+                     <h3>09/06,juni,2026</h3>
+                     <p>kid miss u</p>
+                 </div>
+            </div>
+            
            <div class="gallery-card">
                 <div class="card-img-wrapper">
                     <img src="image/foto10.jpg" alt="Lokasi Makassar" class="clickable-media">
