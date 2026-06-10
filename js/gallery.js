@@ -69,6 +69,7 @@ document.getElementById('root').innerHTML = `
                     <h3>10/06,juni,2026</h3>
                     <p>warkop gunung nona indah</p>
                 </div>
+            </div>
             
             <div class="gallery-card">
                 <div class="card-img-wrapper">
