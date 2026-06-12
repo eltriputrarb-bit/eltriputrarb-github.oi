@@ -38,16 +38,73 @@ body.no-scroll {
     height: 100vh !important;
 }
 
+/* --- FIX TOTAL: BACKGROUND MURNI CSS CYBERPUNK (TANPA IMAGE JPG) --- */
 body {
     background-color: #0c0c0c !important; /* Hitam murni gahar */
-    background: linear-gradient(rgba(12, 12, 12, 0.88), rgba(12, 12, 12, 0.94)), 
-                url('../image/es.jpg') no-repeat center center !important;
-    background-size: cover !important;
-    background-attachment: fixed !important;
+    /* Mengganti gambar es.jpg dengan gradasi radial neon halus agar hemat kuota & ringan */
+    background: radial-gradient(circle at 80% 20%, rgba(0, 136, 204, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 15% 85%, rgba(0, 188, 212, 0.12) 0%, transparent 55%),
+                linear-gradient(180deg, #0c0c0c 0%, #060606 100%) !important;
     font-family: 'Montserrat', sans-serif !important;
     color: #ffffff !important;
     min-height: 100vh !important; /* FIX: Dipaksa min-height mutlak */
     overflow-x: hidden;
+    position: relative;
+}
+
+/* --- SISTEM KUBUS DIGITAL MELAYANG (GALLERY FIXED LAYER) --- */
+.cubes {
+    position: fixed !important; /* Fixed agar kubus tetap melayang stabil saat galeri di-scroll */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    z-index: -1 !important; /* Lapisan paling belakang di bawah kartu galeri agar anti-blocking */
+    pointer-events: none; /* Klik/sentuhan jari akan menembus kubus */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cubes li {
+    position: absolute;
+    display: block;
+    border: 2px solid rgba(0, 136, 204, 0.25) !important; /* Garis neon transparan */
+    background: rgba(0, 136, 204, 0.02) !important;
+    bottom: -150px;
+    animation: flyUpGallery 20s linear infinite;
+    border-radius: 6px;
+    box-shadow: 0 0 8px rgba(0, 136, 204, 0.05);
+}
+
+/* Penempatan posisi, ukuran acak, delay, dan durasi kubus agar menyebar estetik */
+.cubes li:nth-child(1) { left: 5%; width: 75px; height: 75px; animation-delay: 0s; animation-duration: 18s; }
+.cubes li:nth-child(2) { left: 22%; width: 35px; height: 35px; animation-delay: 3s; animation-duration: 12s; }
+.cubes li:nth-child(3) { left: 40%; width: 95px; height: 95px; animation-delay: 1s; animation-duration: 22s; }
+.cubes li:nth-child(4) { left: 58%; width: 45px; height: 45px; animation-delay: 0s; animation-duration: 15s; }
+.cubes li:nth-child(5) { left: 75%; width: 30px; height: 30px; animation-delay: 5s; animation-duration: 13s; }
+.cubes li:nth-child(6) { left: 90%; width: 110px; height: 110px; animation-delay: 2s; animation-duration: 25s; border-color: rgba(0, 188, 212, 0.25) !important; }
+.cubes li:nth-child(7) { left: 14%; width: 55px; height: 55px; animation-delay: 7s; animation-duration: 16s; }
+.cubes li:nth-child(8) { left: 48%; width: 25px; height: 25px; animation-delay: 4s; animation-duration: 10s; }
+.cubes li:nth-child(9) { left: 80%; width: 65px; height: 65px; animation-delay: 6s; animation-duration: 19s; }
+
+@keyframes flyUpGallery {
+    0% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 0; 
+    }
+    10% {
+        opacity: 1; /* Muncul mulus saat naik */
+    }
+    90% {
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(-125vh) rotate(360deg); 
+        opacity: 0; 
+        border-radius: 50%; /* Berubah bulat di atas layar sebelum lenyap */
+    }
 }
 
 /* ==========================================================================
@@ -261,6 +318,8 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
+    position: relative;
+    z-index: 5; /* Memastikan grid berada di atas kubus melayang */
 }
 
 .gallery-card {
@@ -302,7 +361,7 @@ body {
     position: absolute !important;
     top: 50% !important; 
     left: 50% !important;
-    transform: translate(-50%, -50%) scale(1) !important; /* Bersih tanpa titik koma liar */
+    transform: translate(-50%, -50%) scale(1) !important; 
     width: 100% !important; 
     height: 100% !important;
     object-fit: cover !important;
@@ -500,6 +559,8 @@ video::-webkit-media-controls-enclosure {
     clear: both !important;
     /* FIX WADUH HITAM: Diubah jadi transparan total agar background es tembus kelihatan mewah */
     background: transparent !important; 
+    position: relative;
+    z-index: 5;
 }
 
 .pagination-container:empty {

@@ -44,41 +44,100 @@ body {
 }
 
 /* ==========================================================================
-   2. HERO SECTION & BACKGROUND LAYER (OPTIMIZED)
+   2. HERO SECTION & BACKGROUND LAYER (OPTIMIZED SIZE & ANIMATION)
    ========================================================================== */
 .hero {
     position: relative;
     width: 100%;
     height: 100vh;
-    /* BENTENG PERTAMA: Kasih warna hitam solid sebagai dasar mutlak */
     background-color: #0c0c0c !important; 
-    
-    /* DEFAULT UNTUK HP: Menggunakan 'scroll' agar super lancar & anti-bocor putih */
-    background: linear-gradient(rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.85)), 
-                url('../image/es.jpg') no-repeat center center scroll !important;
-    background-size: cover !important;
+    background: radial-gradient(circle at 80% 20%, rgba(0, 136, 204, 0.18) 0%, transparent 50%),
+                radial-gradient(circle at 15% 85%, rgba(0, 188, 212, 0.15) 0%, transparent 55%),
+                linear-gradient(180deg, #0c0c0c 0%, #060606 100%) !important;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
 }
 
-/* KHUSUS LAPTOP/DESKTOP (Layar Lebar) */
-@media screen and (min-width: 769px) {
-    .hero {
-        /* Di laptop baru kita aktifkan efek 'fixed' karena CPU laptop kuat melibasnya */
-        background-attachment: fixed !important;
-    }
+/* --- FIX UKURAN TEKS: RESPONSIF & GAGAH DI SEMUA LAYAR --- */
+.hero-content {
+    width: 100%;
+    max-width: 1200px;
+    padding: 0 20px;
+    text-align: center;
+    z-index: 5;
+    position: relative;
 }
 
-/* Efek shadow teks biar nama Lu makin menyala gahar */
 .hero-content h1 {
     font-family: 'Montserrat', sans-serif !important;
     font-weight: 900 !important;
     color: #ffffff !important;
-    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 136, 204, 0.3) !important;
-    letter-spacing: 2px;
+    text-shadow: 0 0 30px rgba(0, 136, 204, 0.65), 0 4px 15px rgba(0, 0, 0, 0.9) !important;
+    letter-spacing: 4px;
     text-transform: uppercase;
+    
+    /* Menggunakan Clamp agar otomatis pas di semua resolusi layar */
+    font-size: clamp(22px, 5vw, 56px) !important; 
+    line-height: 1.2;
+    white-space: nowrap; /* Memaksa teks tetap 1 baris, anti-patah di HP! */
+}
+
+/* --- SISTEM KUBUS ANIMASI: RAMAI & TERSEBAR MERATA --- */
+.cubes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    pointer-events: none;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.cubes li {
+    position: absolute;
+    display: block;
+    border: 2px solid rgba(0, 136, 204, 0.35) !important;
+    background: rgba(0, 136, 204, 0.03) !important;
+    bottom: -150px;
+    animation: flyUp 18s linear infinite;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0, 136, 204, 0.1);
+}
+
+/* Pengaturan Posisi & Ukuran Kubus (Ditambah Lebih Banyak & Menyebar Halus) */
+.cubes li:nth-child(1) { left: 5%; width: 70px; height: 70px; animation-delay: 0s; animation-duration: 16s; }
+.cubes li:nth-child(2) { left: 20%; width: 35px; height: 35px; animation-delay: 3s; animation-duration: 11s; }
+.cubes li:nth-child(3) { left: 40%; width: 90px; height: 90px; animation-delay: 1s; animation-duration: 20s; }
+.cubes li:nth-child(4) { left: 60%; width: 45px; height: 45px; animation-delay: 0s; animation-duration: 14s; }
+.cubes li:nth-child(5) { left: 75%; width: 30px; height: 30px; animation-delay: 5s; animation-duration: 12s; }
+.cubes li:nth-child(6) { left: 90%; width: 110px; height: 110px; animation-delay: 2s; animation-duration: 22s; border-color: rgba(0, 188, 212, 0.35) !important; }
+.cubes li:nth-child(7) { left: 12%; width: 50px; height: 50px; animation-delay: 7s; animation-duration: 15s; }
+.cubes li:nth-child(8) { left: 52%; width: 25px; height: 25px; animation-delay: 4s; animation-duration: 9s; }
+.cubes li:nth-child(9) { left: 82%; width: 65px; height: 65px; animation-delay: 6s; animation-duration: 17s; }
+
+@keyframes flyUp {
+    0% { 
+        transform: translateY(0) rotate(0deg); 
+        opacity: 0; 
+        border-radius: 4px; 
+    }
+    10% {
+        opacity: 1; /* Muncul perlahan saat naik */
+    }
+    90% {
+        opacity: 1;
+    }
+    100% { 
+        transform: translateY(-125vh) rotate(360deg); 
+        opacity: 0; 
+        border-radius: 50%; /* Berubah jadi bulat pas di atas layar */
+    }
 }
 
 /* ==========================================================================
@@ -105,173 +164,168 @@ body {
     box-shadow: 0 5px 25px rgba(0, 136, 204, 0.3) !important;
 }
 
-.logo-link { 
-    display: flex; 
-    align-items: center; 
-    gap: 15px; 
-    text-decoration: none; 
-    color: white; 
+.nav-left {
+    display: flex !important;
+    align-items: center !important;
+    z-index: 100002 !important;
 }
 
-.logo { 
-    width: 45px !important; 
-    height: 45px !important; 
-    object-fit: contain;
+.logo-link {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-decoration: none !important;
 }
 
-.brand-text { 
-    font-weight: bold; 
-    text-transform: uppercase; 
+.logo {
+    width: 45px !important;
+    height: 45px !important;
+    object-fit: contain !important;
+}
+
+.brand-text {
+    color: white !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+}
+
+.nav-right {
+    display: flex !important;
+    align-items: center !important;
 }
 
 /* ==========================================================================
-   4. DESKTOP & MOBILE RESPONSIVE NAVBAR
+   3. TOMBOL NAVIGASI BIRU NEON GAHAR (DESKTOP & MOBILE LIST)
    ========================================================================== */
-/* --- RESPONSIVE BAR LAPTOP & PC --- */
+.ul-navbar li a,
+.ul-navbar .btn-gahar, 
+.menu-item-btn.btn-gahar,
+.ul-navbar li a.btn-gahar {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 13px !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    color: #ffffff !important; 
+    background: rgba(15, 15, 15, 0.7) !important; 
+    border: 2px solid #0088cc !important; 
+    border-radius: 50px !important;
+    padding: 12px 24px !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    text-shadow: 0 0 5px rgba(0, 136, 204, 0.6) !important;
+    box-shadow: 0 0 12px rgba(0, 136, 204, 0.3) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.ul-navbar li a:hover,
+.ul-navbar .btn-gahar:hover, 
+.menu-item-btn.btn-gahar:hover,
+.ul-navbar li a.btn-gahar:hover {
+    background: #0088cc !important;
+    background-color: #0088cc !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 25px rgba(0, 136, 204, 0.9) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ==========================================================================
+   4. DESKTOP & MOBILE BREAKPOINT (RESPONSIVE & HAMBURGER FIX)
+   ========================================================================== */
 @media screen and (min-width: 769px) {
-    .menu-toggle { 
-        display: none !important; 
+    .mobile-only, .menu-toggle {
+        display: none !important;
     }
     .ul-navbar {
-        display: flex;
-        list-style: none;
-        gap: 20px;
-    }
-    .menu-item-btn {
-        text-decoration: none;
-        color: white !important;
-        font-weight: 800 !important;
-        font-family: 'Montserrat', sans-serif !important;
-        font-size: 13px !important;
-        letter-spacing: 1.5px;
-        padding: 8px 20px !important;
-        border: 2px solid #0088cc;
-        border-radius: 50px;
-        background: transparent !important;
-        transition: all 0.3s ease;
-        text-shadow: 0 0 5px rgba(0, 136, 204, 0.5);
-    }
-    .menu-item-btn:hover {
-        background: #0088cc !important;
-        color: #ffffff !important;
-        box-shadow: 0 0 20px rgba(0, 136, 204, 0.8);
-        transform: translateY(-2px);
-    }
-    .menu-item-btn i { 
-        display: none !important; 
+        display: flex !important;
+        list-style: none !important;
+        gap: 20px !important;
     }
 }
 
-/* --- RESPONSIVE BAR HP / SIDEBAR MOBILE --- */
 @media screen and (max-width: 768px) {
-    .container-navbar {
-        padding: 10px 20px;
-        height: 70px;
-    }
-    
-    /* FIX ANDROID & IOS LAYER: Naikkan z-index ke kasta puncak tertinggi biar ga tenggelam */
-    .menu-toggle { 
-        display: flex !important; 
+    /* FIX ANDROID LAYER: Di-set ke kasta tertinggi di atas sidebar menu */
+    .menu-toggle {
+        display: flex !important;
         flex-direction: column !important;
         justify-content: center !important;
         align-items: center !important;
-        gap: 5px !important;
+        gap: 6px !important;
         cursor: pointer !important;
-        width: 35px !important;
-        height: 35px !important;
-        z-index: 100005 !important; 
+        z-index: 100005 !important;
+        padding: 10px !important;
+        background: transparent !important;
+        border: none !important;
+        width: 45px !important;
+        height: 45px !important;
         position: relative !important;
     }
     
     .menu-toggle span {
         display: block !important;
-        width: 30px !important;
-        height: 3px !important;
-        background: #ffffff !important; /* FIX: Kembalikan jadi putih murni bersinar agar garis kelihatan gahar di HP */
-        border-radius: 10px !important;
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important;
+        width: 28px !important; 
+        height: 3px !important; 
+        background-color: #0088cc !important;
+        border-radius: 2px !important; 
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 0 8px rgba(0, 136, 204, 0.7) !important;
     }
     
-    /* FIX ANTI-SAMAR: Saat menu mobile aktif (X), garis dipaksa menyala putih gahar bersinar neon */
+    /* FIX ANTI-SAMAR ANDROID: Saat aktif jadi X, dipaksa putih solid bersinar terang */
     .menu-toggle.is-active span {
         background-color: #ffffff !important;
         background: #ffffff !important;
         box-shadow: 0 0 10px rgba(255, 255, 255, 0.9) !important;
     }
+    
+    .menu-toggle.is-active span:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0 !important; transform: scale(0) !important; }
+    .menu-toggle.is-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
 
-    /* Pergerakan presisi membentuk huruf X sempurna tanpa lompat */
-    .menu-toggle.is-active span:nth-child(1) { 
-        transform: translateY(8px) rotate(45deg) !important; 
-    }
-    .menu-toggle.is-active span:nth-child(2) { 
-        opacity: 0 !important;
-        transform: scale(0) !important;
-    }
-    .menu-toggle.is-active span:nth-child(3) { 
-        transform: translateY(-8px) rotate(-45deg) !important; 
-    }
-
-    /* KUNCI LAYER MENU MOBILE - TETAP HITAM GAHAR */
     .ul-navbar {
-        position: fixed !important;
+        position: fixed !important; 
         top: 0 !important; 
-        right: -100%;
-        width: 300px !important; 
-        height: 100vh !important;
-        background: #0f0f0f !important; /* Terkunci hitam murni, ga bakal berubah jadi putih */
-        display: flex !important;
-        flex-direction: column !important;
-        justify-content: flex-start !important; 
-        padding-top: 100px !important; 
-        align-items: center !important;
-        gap: 15px !important;
-        transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        border-top-left-radius: 40px;
-        border-bottom-left-radius: 40px;
-        list-style: none;
-        z-index: 100001 !important; /* Di bawah tombol silang (100005) */
-        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8) !important;
+        right: -100% !important;
+        width: 290px !important; 
+        height: 100vh !important; 
+        background: rgba(15, 15, 15, 0.98) !important;
+        display: flex !important; 
+        flex-direction: column !important; 
+        padding-top: 130px !important; 
+        align-items: center !important; 
+        gap: 25px !important; 
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        border-top-left-radius: 30px !important; 
         border-left: 1px solid rgba(0, 136, 204, 0.2) !important;
+        list-style: none !important; 
+        z-index: 100001 !important; /* Berada tepat di bawah tombol X */
+        box-shadow: -10px 0 30px rgba(0,0,0,0.8) !important;
     }
     
     .ul-navbar.active { 
         right: 0 !important; 
     }
     
-    /* Tombol Item di Menu Mobile: Mengikuti style gahar melengkung */
-    .menu-item-btn {
-        display: flex !important;
-        align-items: center !important;
-        gap: 15px !important;
-        background: rgba(255, 255, 255, 0.05) !important;
-        padding: 15px 25px !important;
-        width: 250px !important;
-        border-radius: 50px !important;
-        color: white !important;
-        text-decoration: none !important;
+    .ul-navbar li { 
+        width: 100% !important; 
+        display: flex !important; 
+        justify-content: center !important; 
+        padding: 0 25px !important;
+    }
+    
+    .ul-navbar li a,
+    .ul-navbar .btn-gahar,
+    .ul-navbar li a.btn-gahar { 
+        width: 100% !important; 
+        justify-content: flex-start !important; 
+        padding: 14px 20px !important;
         font-size: 14px !important;
-        font-weight: 700 !important;
-        border: 1px solid rgba(0, 136, 204, 0.3) !important;
-        transition: all 0.25s ease !important;
-    }
-
-    .menu-item-btn:hover {
-        background: rgba(0, 136, 204, 0.15) !important;
-        border-color: #0088cc !important;
-        box-shadow: 0 0 15px rgba(0, 136, 204, 0.4) !important;
-    }
-    
-    .menu-item-btn i { 
-        display: inline-block !important; 
-        color: #0088cc !important;
-        font-size: 16px !important;
-    }
-    
-    /* Tombol Halaman yang Sedang Aktif di Menu Mobile */
-    .active-btn { 
-        background: #0088cc !important; 
-        box-shadow: 0 0 15px rgba(0, 136, 204, 0.6) !important;
-        border-color: #00aaff !important;
     }
 }
 
@@ -396,8 +450,8 @@ body {
 .time-display {
     font-size: 1.75rem;
     font-weight: 700;
-    color: #ffffff;
-    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    color: #00bcd4; /* Serasi dengan tema neon */
+    text-shadow: 0 0 12px rgba(0, 188, 212, 0.4);
     font-family: 'Courier New', monospace;
 }
 
@@ -431,7 +485,7 @@ body {
     }
     .time-display {
         font-size: 0.95rem !important;
-        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        text-shadow: 0 0 5px rgba(0, 188, 212, 0.3);
     }
     .date-display {
         font-size: 0.5rem !important;
