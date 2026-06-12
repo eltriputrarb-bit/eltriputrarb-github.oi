@@ -493,37 +493,49 @@ video::-webkit-media-controls-enclosure {
     align-items: center !important;
     gap: 10px !important;
     width: 100% !important;
-    margin: 80px auto 50px auto !important; 
-    padding: 10px 0 !important;
+    margin: 60px auto 40px auto !important; 
+    padding: 15px 0 !important;
     font-family: 'Montserrat', sans-serif !important;
     user-select: none !important;
     clear: both !important;
-    background: #0c0c0c !important; /* FIX: Dikunci hitam pekat murni anti bocor putih */
+    /* FIX WADUH HITAM: Diubah jadi transparan total agar background es tembus kelihatan mewah */
+    background: transparent !important; 
+}
+
+.pagination-container:empty {
+    display: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 .page-btn {
     min-width: 44px !important;
     height: 44px !important;
-    padding: 0 12px !important;
+    padding: 0 16px !important; /* Diperlebar sedikit agar tombol tulisan seperti 'First'/'Last' muat rapi */
     display: inline-flex !important;
     justify-content: center !important;
     align-items: center !important;
-    background: rgba(15, 15, 15, 0.8) !important;
-    border: 1px solid rgba(0, 188, 212, 0.25) !important;
-    color: #ffffff !important; 
-    font-size: 14px !important;
+    /* Background tombol dibuat hitam transparan tipis beraksen neon */
+    background: rgba(15, 15, 15, 0.6) !important;
+    border: 1px solid rgba(0, 188, 212, 0.3) !important;
+    color: #ffffff !important;  /* Memastikan teks tombol 'First' dll berwarna putih terang */
+    font-size: 13px !important;
     font-weight: 700 !important;
-    border-radius: 6px !important;
+    border-radius: 8px !important;
     cursor: pointer !important;
     text-decoration: none !important;
+    text-transform: uppercase !important; /* Bikin tulisan First/Last jadi gahar (HURUF BESAR) */
+    letter-spacing: 1px !important;
     transition: all 0.25s ease !important;
 }
 
 .page-btn:hover:not(.disabled):not(.active) {
-    background: rgba(0, 188, 212, 0.15) !important;
+    background: rgba(0, 188, 212, 0.2) !important;
     border-color: #00bcd4 !important;
     color: #00bcd4 !important;
-    box-shadow: 0 0 12px rgba(0, 188, 212, 0.3) !important;
+    box-shadow: 0 0 15px rgba(0, 188, 212, 0.4) !important;
     transform: translateY(-2px) !important;
 }
 
@@ -532,7 +544,7 @@ video::-webkit-media-controls-enclosure {
     border-color: #00bcd4 !important;
     color: #0a0a0a !important; 
     font-weight: 800 !important;
-    box-shadow: 0 0 15px rgba(0, 188, 212, 0.5) !important;
+    box-shadow: 0 0 18px rgba(0, 188, 212, 0.6) !important;
 }
 
 .page-dots {
@@ -543,24 +555,24 @@ video::-webkit-media-controls-enclosure {
 }
 
 .page-btn.disabled {
-    opacity: 0.2 !important;
+    opacity: 0.15 !important;
     cursor: not-allowed !important;
     background: transparent !important;
-    border-color: rgba(255, 255, 255, 0.04) !important;
-    color: #555555 !important;
+    border-color: rgba(255, 255, 255, 0.05) !important;
+    color: #444444 !important;
     transform: none !important;
     box-shadow: none !important;
 }
 
 @media (max-width: 480px) {
     .page-btn {
-        min-width: 38px !important;
-        height: 38px !important;
-        font-size: 12px !important;
-        padding: 0 8px !important;
+        min-width: 36px !important;
+        height: 36px !important;
+        font-size: 11px !important;
+        padding: 0 10px !important;
     }
     .pagination-container {
         gap: 6px !important;
-        margin-top: 50px !important;
+        margin-top: 40px !important;
     }
 }
