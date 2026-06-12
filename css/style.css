@@ -32,7 +32,7 @@
 @keyframes slide-up { from { transform: translateY(30px); } to { transform: translateY(0); } }
 
 body {
-    background-color: #0c0c0c !important;
+    background-color: #0c0c0c !important; /* Dasar halaman dikunci hitam gahar murni */
     font-family: 'Montserrat', sans-serif;
     color: #ffffff;
     margin: 0;
@@ -158,7 +158,7 @@ body {
         height: 70px;
     }
     
-    /* FIX ANDROID: Naikkan kasta z-index toggle di atas .ul-navbar (10005 > 10001) */
+    /* FIX ANDROID & IOS LAYER: Naikkan z-index ke kasta puncak tertinggi biar ga tenggelam */
     .menu-toggle { 
         display: flex !important; 
         flex-direction: column !important;
@@ -168,7 +168,7 @@ body {
         cursor: pointer !important;
         width: 35px !important;
         height: 35px !important;
-        z-index: 10005 !important; 
+        z-index: 100005 !important; 
         position: relative !important;
     }
     
@@ -181,10 +181,11 @@ body {
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important;
     }
     
-    /* UPDATE ANIMASI SILANG (X PUTIH BERSIH + GLOW SEGAR) */
+    /* FIX ANTI-SAMAR: Saat menu mobile aktif (X), garis dipaksa menyala putih gahar bersinar neon */
     .menu-toggle.is-active span {
-        background: #ffffff !important; /* Paksa semua garis jadi putih solid saat aktif */
-        box-shadow: 0 0 8px rgba(255, 255, 255, 0.9) !important; /* Efek neon putih biar ga ketelan background hitam */
+        background-color: #ffffff !important;
+        background: #ffffff !important;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.9) !important;
     }
 
     /* Pergerakan presisi membentuk huruf X sempurna tanpa lompat */
@@ -199,14 +200,14 @@ body {
         transform: translateY(-8px) rotate(-45deg) !important; 
     }
 
-    /* KUNCI LAYER MENU MOBILE */
+    /* KUNCI LAYER MENU MOBILE - TETAP HITAM GAHAR */
     .ul-navbar {
         position: fixed !important;
         top: 0 !important; 
         right: -100%;
         width: 300px !important; 
         height: 100vh !important;
-        background: #0f0f0f !important;
+        background: #0f0f0f !important; /* Terkunci hitam murni, ga bakal berubah jadi putih */
         display: flex !important;
         flex-direction: column !important;
         justify-content: flex-start !important; 
@@ -217,14 +218,16 @@ body {
         border-top-left-radius: 40px;
         border-bottom-left-radius: 40px;
         list-style: none;
-        z-index: 10001 !important; /* Terkunci di bawah lapisan tombol toggle */
-        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6) !important;
+        z-index: 100001 !important; /* Di bawah tombol silang (100005) */
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.8) !important;
+        border-left: 1px solid rgba(0, 136, 204, 0.2) !important;
     }
     
     .ul-navbar.active { 
         right: 0 !important; 
     }
     
+    /* Tombol Item di Menu Mobile: Mengikuti style gahar melengkung */
     .menu-item-btn {
         display: flex !important;
         align-items: center !important;
@@ -237,7 +240,14 @@ body {
         text-decoration: none !important;
         font-size: 14px !important;
         font-weight: 700 !important;
-        border: none !important;
+        border: 1px solid rgba(0, 136, 204, 0.3) !important;
+        transition: all 0.25s ease !important;
+    }
+
+    .menu-item-btn:hover {
+        background: rgba(0, 136, 204, 0.15) !important;
+        border-color: #0088cc !important;
+        box-shadow: 0 0 15px rgba(0, 136, 204, 0.4) !important;
     }
     
     .menu-item-btn i { 
@@ -246,8 +256,11 @@ body {
         font-size: 16px !important;
     }
     
+    /* Tombol Halaman yang Sedang Aktif di Menu Mobile */
     .active-btn { 
-        background: #0061f2 !important; 
+        background: #0088cc !important; 
+        box-shadow: 0 0 15px rgba(0, 136, 204, 0.6) !important;
+        border-color: #00aaff !important;
     }
 }
 
