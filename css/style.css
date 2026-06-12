@@ -1,0 +1,620 @@
+/* ==========================================================================
+   1. RESET, GENERAL STYLE, & PAGE TRANSITIONS (VIEW TRANSITIONS API)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* --- FITUR ANIMASI TRANSISI ANTAR HALAMAN (MURNI CSS BROWSER) --- */
+@view-transition {
+    navigation: auto; /* Mengaktifkan animasi otomatis saat klik menu pindah halaman */
+}
+
+/* Animasi halaman lama saat mulai menghilang */
+::view-transition-old(root) {
+    animation: fade-out 0.3s cubic-bezier(0.4, 0, 0.2, 1) both,
+               scale-down 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Animasi halaman baru saat meluncur masuk */
+::view-transition-new(root) {
+    animation: fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) both,
+               slide-up 0.4s cubic-bezier(0.1, 0.9, 0.2, 1) both;
+}
+
+/* Keyframes Pergerakan Animasi */
+@keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scale-down { from { transform: scale(1); } to { transform: scale(0.98); } }
+@keyframes slide-up { from { transform: translateY(30px); } to { transform: translateY(0); } }
+
+body {
+    background-color: #0c0c0c !important; /* Kembalikan hitam pekat gahar */
+    font-family: 'Montserrat', sans-serif;
+    color: #ffffff !important;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden; /* Mencegah layar geser kanan-kiri */
+}
+
+/* ==========================================================================
+   2. HERO SECTION & BACKGROUND LAYER (OPTIMIZED)
+   ========================================================================== */
+.hero {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    /* Gabungan background linear gelap gahar */
+    background: linear-gradient(rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.85)), 
+                url('../image/es.jpg') no-repeat center center fixed !important;
+    background-size: cover !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Efek shadow teks biar nama Lu makin menyala gahar */
+.hero-content h1 {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 900 !important;
+    color: #ffffff !important;
+    text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 136, 204, 0.3) !important;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+/* ==========================================================================
+   3. KONFIGURASI NAVBAR UTAMA (BIRU NEON GLOW)
+   ========================================================================== */
+.container-navbar {
+    background: rgba(10, 10, 10, 0.75) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0 5% !important;
+    height: 80px !important;
+    position: fixed !important;
+    top: 0; left: 0; width: 100%;
+    z-index: 100000 !important;
+    border-bottom: 1px solid rgba(0, 136, 204, 0.1) !important;
+    transition: all 0.4s ease-in-out !important;
+}
+
+/* Aktif via JS saat user melakukan scroll ke bawah */
+.container-navbar.navbar-scrolled {
+    background: rgba(10, 10, 10, 0.98) !important;
+    height: 70px !important;
+    border-bottom: 1px solid rgba(0, 136, 204, 0.6) !important;
+    box-shadow: 0 5px 25px rgba(0, 136, 204, 0.3) !important;
+}
+
+.logo-link { 
+    display: flex; 
+    align-items: center; 
+    gap: 15px; 
+    text-decoration: none; 
+    color: white; 
+}
+
+.logo { 
+    width: 45px !important; 
+    height: 45px !important; 
+    object-fit: contain;
+}
+
+.brand-text { 
+    font-weight: bold; 
+    text-transform: uppercase; 
+}
+
+/* ==========================================================================
+   4. DESKTOP & MOBILE RESPONSIVE NAVBAR
+   ========================================================================== */
+/* --- RESPONSIVE BAR LAPTOP & PC --- */
+@media screen and (min-width: 769px) {
+    .menu-toggle { 
+        display: none !important; 
+    }
+    .ul-navbar {
+        display: flex;
+        list-style: none;
+        gap: 20px;
+    }
+    .menu-item-btn {
+        text-decoration: none;
+        color: white !important;
+        font-weight: 800 !important;
+        font-family: 'Montserrat', sans-serif !important;
+        font-size: 13px !important;
+        letter-spacing: 1.5px;
+        padding: 8px 20px !important;
+        border: 2px solid #0088cc;
+        border-radius: 50px;
+        background: transparent !important;
+        transition: all 0.3s ease;
+        text-shadow: 0 0 5px rgba(0, 136, 204, 0.5);
+    }
+    .menu-item-btn:hover {
+        background: #0088cc !important;
+        color: #ffffff !important;
+        box-shadow: 0 0 20px rgba(0, 136, 204, 0.8);
+        transform: translateY(-2px);
+    }
+    .menu-item-btn i { 
+        display: none !important; 
+    }
+}
+
+/* --- RESPONSIVE BAR HP / SIDEBAR MOBILE --- */
+@media screen and (max-width: 768px) {
+    .container-navbar {
+        padding: 10px 20px;
+        height: 70px;
+    }
+    .menu-toggle { 
+        display: flex; 
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        z-index: 10001; 
+    }
+    .menu-toggle span {
+        display: block;
+        width: 30px;
+        height: 3px;
+        background: white;
+        border-radius: 10px;
+        transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    }
+    .menu-toggle.is-active span {
+        background: #ffffff !important; 
+        box-shadow: none !important; 
+    }
+
+    .menu-toggle.is-active span:nth-child(1) { 
+        transform: translateY(8px) rotate(45deg) !important; 
+    }
+    .menu-toggle.is-active span:nth-child(2) { 
+        opacity: 0 !important; 
+    }
+    .menu-toggle.is-active span:nth-child(3) { 
+        transform: translateY(-8px) rotate(-45deg) !important; 
+    }
+
+    .ul-navbar {
+        position: fixed;
+        top: 0; 
+        right: -100%;
+        width: 300px; 
+        height: 100vh;
+        background: #0f0f0f;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start; 
+        padding-top: 100px; 
+        align-items: center;
+        gap: 15px;
+        transition: 0.5s ease;
+        border-top-left-radius: 40px;
+        border-bottom-left-radius: 40px;
+        list-style: none;
+    }
+    .ul-navbar.active { 
+        right: 0; 
+    }
+    .menu-item-btn {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.05) !important;
+        padding: 15px 25px !important;
+        width: 250px;
+        border-radius: 50px;
+        color: white !important;
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 700;
+        border: none !important;
+    }
+    .menu-item-btn i { 
+        display: inline-block !important; 
+        color: #0088cc;
+        font-size: 16px;
+    }
+    .active-btn { 
+        background: #0061f2 !important; 
+    }
+}
+
+/* ==========================================================================
+   5. PROFILE & BIODATA AREA (DARK TRANS-GLASSMORPHISM)
+   ========================================================================== */
+.profile-section {
+    background-color: #0c0c0c !important; /* FIX: Ubah dari transparent ke hitam gahar biar ga bocor putih */
+    padding: 60px 10%;
+    color: #ffffff !important;
+}
+
+.container-flex {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image-wrapper {
+    position: relative; 
+    display: inline-block;
+}
+
+.img-main {
+    width: 100%;
+    max-width: 400px;
+    border-radius: 15px;
+    display: block;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.floating-logo {
+    position: absolute;
+    bottom: -15px; 
+    right: -15px;  
+    width: 100px;  
+    z-index: 10;
+    filter: drop-shadow(0 0 10px rgba(0, 255, 200, 0.5));
+}
+
+.floating-logo img {
+    width: 100%;
+    background: transparent !important;
+}
+
+.text-wrapper {
+    flex: 1;
+    min-width: 300px;
+}
+
+.label-eltri {
+    color: #ffaa00;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+.name-title {
+    font-size: 35px;
+    margin: 10px 0;
+    font-weight: 900;
+    color: #ffffff;
+}
+
+.visi-text {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 24px;
+    font-style: italic; 
+    font-weight: 700;
+    color: #d4af37; 
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+    margin-top: 5px;
+}
+
+/* ==========================================================================
+   6. WORLD CLOCK SYSTEM (DARK GLOW THEME)
+   ========================================================================== */
+.world-clock-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    padding: 25px 30px;
+    flex-wrap: nowrap;
+    background: rgba(11, 21, 40, 0.4) !important; 
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    max-width: 800px;
+    margin: 50px auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.clock-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    min-width: 140px;
+    padding: 12px;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02) !important;
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.clock-card:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    transform: translateY(-5px);
+}
+
+.city-name {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.6) !important;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.time-display {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #ffffff !important;
+    text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+    font-family: 'Courier New', monospace;
+}
+
+.date-display {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4) !important;
+    margin-top: 5px;
+}
+
+/* RESPONSIVE JAM DI HP */
+@media screen and (max-width: 768px) {
+    .world-clock-container {
+        gap: 5px;
+        padding: 12px 6px;
+        margin: 20px auto;
+        max-width: 96%;
+        border-radius: 10px;
+        flex-wrap: nowrap;
+    }
+    .clock-card {
+        min-width: auto;
+        flex: 1;
+        padding: 4px 2px;
+        background: rgba(255, 255, 255, 0.01) !important;
+        border-radius: 6px;
+    }
+    .city-name {
+        font-size: 0.55rem !important;
+        letter-spacing: 0.5px;
+        margin-bottom: 4px;
+    }
+    .time-display {
+        font-size: 0.95rem !important;
+        text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+    }
+    .date-display {
+        font-size: 0.5rem !important;
+        margin-top: 2px;
+    }
+}
+
+/* ==========================================================================
+   7. RPG SYSTEM DIGITAL SKILL CARD (DARK THEME)
+   ========================================================================== */
+.skills-section-wrapper {
+    width: 100%;
+    padding: 40px 0;
+    background: #0c0c0c !important; /* FIX: Ubah dari transparent ke hitam gahar biar ga bocor putih */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.skills-grid-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 20px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.rpg-skill-card {
+    background: rgba(15, 23, 42, 0.4) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px;
+    padding: 20px;
+    width: 260px;
+    min-width: 230px;
+    height: 140px;
+    backdrop-filter: blur(8px);
+    font-family: 'Courier New', monospace;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: all 0.3s ease;
+}
+
+.rpg-skill-card:hover {
+    transform: translateY(-5px);
+    background: rgba(15, 23, 42, 0.6) !important;
+    border-color: rgba(76, 166, 76, 0.5) !important;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.skill-card-logo-zone {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.skill-icon-logo {
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.3));
+}
+
+/* BRANDING COLOR NEON GLOW */
+.python-color { color: #3776AB; filter: drop-shadow(0 0 8px rgba(55, 118, 171, 0.6)); }
+.html-color { color: #E34F26; filter: drop-shadow(0 0 8px rgba(227, 79, 38, 0.6)); }
+.js-color { color: #F7DF1E; background: #000; border-radius: 4px; padding: 1px 4px; font-size: 1.7rem; filter: drop-shadow(0 0 8px rgba(247, 223, 30, 0.5)); }
+.css-color { color: #1572B6; filter: drop-shadow(0 0 8px rgba(21, 114, 182, 0.6)); }
+
+.skill-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.skill-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff !important;
+    letter-spacing: 1px;
+}
+
+.card-level {
+    font-size: 0.9rem;
+    color: #85bb65 !important;
+    font-weight: bold;
+}
+
+.card-progress-bar {
+    width: 100%;
+    height: 6px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #4ca64c, #6ec06e);
+    box-shadow: 0 0 10px rgba(76, 166, 76, 0.6);
+}
+
+/* RESPONSIF SKILL CARD DI HP */
+@media screen and (max-width: 768px) {
+    .skills-grid-container {
+        flex-wrap: wrap;
+        gap: 12px;
+        justify-content: center;
+        width: 95%;
+    }
+    .rpg-skill-card {
+        width: calc(50% - 12px);
+        min-width: 140px;
+        height: 115px;
+        padding: 12px 15px;
+        border-radius: 8px;
+    }
+    .skill-icon-logo { font-size: 1.6rem; }
+    .js-color { font-size: 1.4rem; }
+    .skill-title { font-size: 0.95rem !important; }
+    .card-level { font-size: 0.8rem !important; }
+    .card-progress-bar { height: 4px; }
+}
+
+/* ==========================================================================
+   8. FOOTER DESIGN & INTERACTIVE SOCIAL MEDIA (PURE DARK)
+   ========================================================================== */
+.social-footer {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+    padding: 30px 0; 
+    text-align: center;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.social-footer h3 {
+    margin-bottom: 20px;
+    font-family: 'Yellowtail', cursive; 
+    color: #ff8c00 !important;
+    font-size: 28px;
+    letter-spacing: 1px;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px; 
+}
+
+.social-icons a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%; 
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.social-icons a i {
+    color: #ffffff !important; 
+    font-size: 24px !important; 
+}
+
+.social-icons a.instagram { background-color: #e4405f !important; }
+.social-icons a.instagram:hover {
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888) !important; 
+    box-shadow: 0 0 20px rgba(228, 64, 95, 0.6);
+    transform: translateY(-4px) scale(1.05);
+}
+
+.social-icons a.x-logo {
+    background-color: #000000 !important; 
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+.social-icons a.x-logo:hover {
+    background-color: #ffffff !important; 
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+    transform: translateY(-4px) scale(1.05);
+}
+.social-icons a.x-logo:hover .svg-x { fill: #000000 !important; }
+.social-icons a.x-logo .svg-x { fill: #ffffff !important; width: 22px; height: 22px; transition: 0.3s; }
+
+.main-footer {
+    text-align: center;
+    padding: 30px;
+    background: #000000 !important; 
+    color: #ffffff !important;
+    font-size: 13px;
+    width: 100%;
+    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* GREEN ONLINE INDICATOR DOT */
+.status-dot-fixed {
+    width: 10px;
+    height: 10px;
+    background-color: #00ff88;
+    border-radius: 50%;
+    position: relative;
+    display: inline-block;
+    box-shadow: 0 0 10px #00ff88;
+    flex-shrink: 0;
+}
+.status-dot-fixed::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    background-color: #00ff88;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulseEffect 2s infinite ease-in-out;
+}
+
+@keyframes pulseEffect {
+    0% { width: 100%; height: 100%; opacity: 0.8; }
+    100% { width: 300%; height: 300%; opacity: 0; }
+}

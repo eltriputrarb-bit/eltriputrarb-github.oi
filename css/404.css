@@ -1,0 +1,496 @@
+/* ==========================================================================
+   1. RESET, GENERAL STYLE, & PAGE TRANSITIONS (VIEW TRANSITIONS API)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* FIX TOTAL: Menghilangkan kotak biru standard browser saat ditekan di HP */
+    -webkit-tap-highlight-color: transparent !important;
+}
+
+/* --- KUNCIAN UTAMA ANIMASI TRANSISI ANTAR HALAMAN (MURNI CSS BROWSER) --- */
+@view-transition {
+    navigation: auto; /* Mengaktifkan animasi otomatis saat berpindah halaman HTML */
+}
+
+/* Efek Animasi Halaman Lama Saat Keluar (Memudar & Mengecil Halus) */
+::view-transition-old(root) {
+    animation: fade-out 0.3s cubic-bezier(0.4, 0, 0.2, 1) both,
+               scale-down 0.3s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Efek Animasi Halaman Baru Saat Masuk (Muncul Meluncur dari Bawah) */
+::view-transition-new(root) {
+    animation: fade-in 0.4s cubic-bezier(0.4, 0, 0.2, 1) both,
+               slide-up 0.4s cubic-bezier(0.1, 0.9, 0.2, 1) both;
+}
+
+/* Keyframes Pergerakan Animasi Transisi */
+@keyframes fade-out { from { opacity: 1; } to { opacity: 0; } }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scale-down { from { transform: scale(1); } to { transform: scale(0.98); } }
+@keyframes slide-up { from { transform: translateY(30px); } to { transform: translateY(0); } }
+
+/* --- KUNCIAN ANTI-BOCOB SCROLLBAR --- */
+body.no-scroll {
+    overflow: hidden !important;
+    height: 100vh !important;
+}
+
+html {
+    background-color: #ffffff !important; /* Mengunci base layer browser agar tetap putih premium */
+}
+
+body {
+    background-color: #ffffff !important; /* Dasar halaman dikunci putih bersih premium */
+    width: 100%;
+    min-height: 100vh;
+    overflow-x: hidden; /* Biar layar HP lu gak bisa digeser kanan-kiri (bocor) */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* HERO AREA: Diubah total menjadi putih bersih premium */
+.hero {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 120px 20px 60px 20px;
+    background-color: #ffffff !important; /* Paksa area konten 404 berlatar belakang putih murni */
+}
+
+/* Container Wrapper Konten Tengah */
+.hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+}
+
+/* ==========================================================================
+   2. NAVBAR STRUCTURE (BIRU NEON ACCENT) - TETAP GAHAR DI ATAS
+   ========================================================================== */
+.container-navbar {
+    background: rgba(10, 10, 10, 0.75) !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0 5% !important;
+    height: 80px !important;
+    position: fixed !important;
+    top: 0; left: 0; width: 100%;
+    z-index: 100000 !important;
+    border-bottom: 1px solid rgba(0, 136, 204, 0.1) !important;
+    transition: all 0.4s ease-in-out !important;
+}
+
+.container-navbar.navbar-scrolled {
+    background: rgba(10, 10, 10, 0.98) !important;
+    height: 70px !important;
+    border-bottom: 1px solid rgba(0, 136, 204, 0.6) !important;
+    box-shadow: 0 5px 25px rgba(0, 136, 204, 0.3) !important;
+}
+
+.nav-left {
+    display: flex !important;
+    align-items: center !important;
+    z-index: 100002 !important;
+}
+
+.logo-link {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    text-decoration: none !important;
+}
+
+.logo {
+    width: 45px !important;
+    height: 45px !important;
+    object-fit: contain !important;
+}
+
+.brand-text {
+    color: white !important;
+    font-weight: 900 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.5px !important;
+}
+
+.nav-right {
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* ==========================================================================
+   3. TOMBOL NAVIGASI BIRU NEON GAHAR (DESKTOP & MOBILE LIST)
+   ========================================================================== */
+.ul-navbar li a,
+.ul-navbar .btn-gahar, 
+.menu-item-btn.btn-gahar,
+.ul-navbar li a.btn-gahar {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 800 !important;
+    font-size: 13px !important;
+    letter-spacing: 1.5px !important;
+    text-transform: uppercase !important;
+    color: #ffffff !important; 
+    background: rgba(15, 15, 15, 0.7) !important; 
+    border: 2px solid #0088cc !important; 
+    border-radius: 50px !important;
+    padding: 12px 24px !important;
+    text-decoration: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 12px !important;
+    white-space: nowrap !important;
+    width: auto !important;
+    text-shadow: 0 0 5px rgba(0, 136, 204, 0.6) !important;
+    box-shadow: 0 0 12px rgba(0, 136, 204, 0.3) !important;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.ul-navbar li a:hover,
+.ul-navbar .btn-gahar:hover, 
+.menu-item-btn.btn-gahar:hover,
+.ul-navbar li a.btn-gahar:hover {
+    background: #0088cc !important;
+    background-color: #0088cc !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 25px rgba(0, 136, 204, 0.9) !important;
+    transform: translateY(-2px) !important;
+}
+
+/* ==========================================================================
+   4. DESKTOP & MOBILE BREAKPOINT (RESPONSIVE & HAMBURGER FIX)
+   ========================================================================== */
+@media screen and (min-width: 769px) {
+    .mobile-only, .menu-toggle {
+        display: none !important;
+    }
+    .ul-navbar {
+        display: flex !important;
+        list-style: none !important;
+        gap: 20px !important;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .menu-toggle {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 6px !important;
+        cursor: pointer !important;
+        z-index: 100002 !important;
+        padding: 10px !important;
+        background: transparent !important;
+        border: none !important;
+        width: 45px !important;
+        height: 45px !important;
+    }
+    
+    .menu-toggle span {
+        display: block !important;
+        width: 28px !important; 
+        height: 3px !important; 
+        background-color: #0088cc !important;
+        border-radius: 2px !important; 
+        transition: all 0.3s ease !important;
+        box-shadow: 0 0 8px rgba(0, 136, 204, 0.7);
+    }
+    
+    .menu-toggle.is-active span {
+        background-color: #ffffff !important;
+        box-shadow: none !important;
+    }
+    .menu-toggle.is-active span:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0 !important; }
+    .menu-toggle.is-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
+
+    .ul-navbar {
+        position: fixed !important; 
+        top: 0 !important; 
+        right: -100% !important;
+        width: 290px !important; 
+        height: 100vh !important; 
+        background: rgba(15, 15, 15, 0.98) !important;
+        display: flex !important; 
+        flex-direction: column !important; 
+        padding-top: 130px !important; 
+        align-items: center !important; 
+        gap: 25px !important; 
+        transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        border-top-left-radius: 30px !important; 
+        border-left: 1px solid rgba(0, 136, 204, 0.2) !important;
+        list-style: none !important; 
+        z-index: 100001 !important;
+        box-shadow: -10px 0 30px rgba(0,0,0,0.8) !important;
+    }
+    
+    .ul-navbar.active { 
+        right: 0 !important; 
+    }
+    
+    .ul-navbar li { 
+        width: 100% !important; 
+        display: flex !important; 
+        justify-content: center !important; 
+        padding: 0 25px !important;
+    }
+    
+    .ul-navbar li a,
+    .ul-navbar .btn-gahar,
+    .ul-navbar li a.btn-gahar { 
+        width: 100% !important; 
+        justify-content: flex-start !important; 
+        padding: 14px 20px !important;
+        font-size: 14px !important;
+    }
+}
+
+/* ==========================================================================
+   5. ANIMASI AYUNAN & STRUKTUR PANDA KUSTOM GAHAR (LIGHT MODE CONTRAST)
+   ========================================================================== */
+.animation-container {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    background: transparent !important;
+}
+
+/* Tiang Penyangga Ayunan: Diubah kontras abu-abu tegas agar keliatan di background putih */
+.swing-structure {
+    position: relative;
+    width: 190px;
+    height: 170px;
+    border-left: 5px solid #cbd5e0 !important;
+    border-right: 5px solid #cbd5e0 !important;
+    border-top: 5px solid #cbd5e0 !important;
+    border-radius: 4px 4px 0 0;
+}
+
+/* Tali Ayunan Goyang */
+.swing-ropes {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 80px;
+    height: 115px;
+    margin-left: -40px;
+    border-left: 2px dashed #718096 !important; 
+    border-right: 2px dashed #718096 !important;
+    transform-origin: top center;
+    animation: swingMove 2.5s ease-in-out infinite alternate;
+    will-change: transform; /* Akselerasi hardware biar ga lag di HP */
+}
+
+/* Papan Dudukan Ayunan (Neon Glow) */
+.swing-ropes::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: -10px;
+    width: 100px;
+    height: 6px;
+    background-color: #0088cc;
+    border-radius: 50px;
+    box-shadow: 0 0 15px rgba(0, 136, 204, 0.9);
+    z-index: 5;
+}
+
+/* --- THE BUILD PANDA ENGINE --- */
+.panda-body {
+    position: absolute;
+    bottom: 6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 65px;
+    height: 60px;
+    z-index: 2;
+}
+
+/* Telinga Panda Bulat Hitam */
+.panda-ear {
+    position: absolute;
+    top: -4px;
+    width: 18px;
+    height: 18px;
+    background: #111111;
+    border-radius: 50%;
+    border: 2px solid #000000;
+}
+.panda-ear.left { left: 2px; }
+.panda-ear.right { right: 2px; }
+
+/* Kepala Panda Putih Mulus dengan Bayangan Elegan */
+.panda-face {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #ffffff;
+    border-radius: 50% 50% 45% 45%;
+    border: 3px solid #111111;
+    box-shadow: inset 0 -5px 0 #edf2f7 !important;
+}
+
+/* Corak Hitam Mata Panda */
+.panda-eye-patch {
+    position: absolute;
+    top: 16px;
+    width: 18px;
+    height: 22px;
+    background: #111111;
+    border-radius: 50%;
+}
+.panda-eye-patch.left { left: 8px; transform: rotate(15deg); }
+.panda-eye-patch.right { right: 8px; transform: rotate(-15deg); }
+
+/* Mata Pupil Biru Neon Menyala */
+.panda-pupil {
+    position: absolute;
+    top: 6px;
+    left: 5px;
+    width: 7px;
+    height: 7px;
+    background: #0088cc;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #00aaff, 0 0 15px #0088cc;
+}
+
+/* Hidung Panda */
+.panda-nose {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 6px;
+    background: #111111;
+    border-radius: 50% 50% 40% 40%;
+}
+
+/* Tangan Cakar Megang Tali Ayunan */
+.panda-paw {
+    position: absolute;
+    top: 24px;
+    width: 14px;
+    height: 14px;
+    background: #111111;
+    border-radius: 50%;
+    border: 2px solid #000000;
+    z-index: 6; 
+}
+.panda-paw.left { left: -8px; }
+.panda-paw.right { right: -8px; }
+
+/* Engine Animasi Ayunan Goyang */
+@keyframes swingMove {
+    0% { transform: rotate(-22deg); }
+    100% { transform: rotate(22deg); }
+}
+
+/* ==========================================================================
+   6. TYPOGRAPHY & EFEK NEON TEXT (FIX KONTRAS PUTIH BERSIH)
+   ========================================================================== */
+.error-text {
+    font-size: 90px !important;
+    font-weight: 900 !important;
+    color: #1a202c !important; /* Hitam premium kontras tinggi di atas putih */
+    letter-spacing: 2px !important;
+    line-height: 1 !important;
+    margin-bottom: 15px !important;
+    text-shadow: 0 2px 8px rgba(0, 136, 204, 0.2), 0 0 20px rgba(0, 136, 204, 0.1) !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: center;
+}
+
+.message {
+    font-size: 16px !important;
+    font-weight: 800 !important;
+    color: #2d3748 !important; /* Hitam abu-abu pekat gahar */
+    margin-bottom: 10px !important;
+    letter-spacing: 0.5px !important;
+    text-transform: uppercase !important;
+    width: 100% !important;
+    text-align: center;
+}
+
+.submessage {
+    font-size: 13px !important;
+    color: #4a5568 !important; /* Abu-abu tua terbaca jelas */
+    margin-bottom: 35px !important;
+    font-weight: 400 !important;
+    padding: 0 15px !important;
+    line-height: 1.5 !important;
+    width: 100% !important;
+    text-align: center;
+}
+
+/* Responsive Font khusus Layar HP Cilik */
+@media screen and (max-width: 480px) {
+    .error-text { font-size: 70px !important; }
+    .message { font-size: 14px !important; }
+    .submessage { font-size: 12px !important; }
+}
+
+/* ==========================================================================
+   7. BUTTON KEMBALI & CARD JAM FOOTER (LIGHT MODE COMPATIBLE)
+   ========================================================================== */
+.home-button {
+    text-decoration: none !important;
+    color: #0088cc !important; 
+    font-weight: 800 !important;
+    font-size: 13px !important;
+    letter-spacing: 1px !important;
+    padding: 12px 32px !important;
+    border: 2px solid #0088cc !important;
+    border-radius: 50px !important;
+    background: transparent !important;
+    transition: all 0.3s ease !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 8px !important;
+    box-shadow: 0 4px 12px rgba(0, 136, 204, 0.15) !important;
+}
+
+.home-button:hover {
+    background: #0088cc !important;
+    color: #ffffff !important; 
+    box-shadow: 0 6px 20px rgba(0, 136, 204, 0.5) !important;
+    transform: translateY(-2px) !important;
+}
+
+.mini-clock {
+    margin-top: 35px !important;
+    background: #f7fafc !important; 
+    padding: 8px 22px !important;
+    border-radius: 50px !important;
+    border: 1px solid #e2e8f0 !important; 
+    font-size: 11px !important;
+    color: #4a5568 !important; 
+    font-weight: 700 !important;
+    letter-spacing: 1px !important;
+    display: inline-block !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02) !important;
+}
+
+#local-time {
+    color: #0088cc !important;
+    text-shadow: none !important;
+    margin-left: 3px !important;
+}
