@@ -46,7 +46,7 @@ body {
     background-attachment: fixed !important;
     font-family: 'Montserrat', sans-serif !important;
     color: #ffffff !important;
-    min-height: 100vh;
+    min-height: 100vh !important; /* FIX: Dipaksa min-height mutlak */
     overflow-x: hidden;
 }
 
@@ -248,6 +248,7 @@ body {
     padding: 0 20px;
     opacity: 0;
     animation: fadeInGallery 0.3s linear forwards;
+    min-height: 400px; /* FIX: Beri minimal tinggi agar area bawah tidak menggulung putih saat data kosong */
 }
 @keyframes fadeInGallery { to { opacity: 1; } }
 
@@ -497,7 +498,7 @@ video::-webkit-media-controls-enclosure {
     font-family: 'Montserrat', sans-serif !important;
     user-select: none !important;
     clear: both !important;
-    background: transparent !important; /* Bersih anti bocor putih */
+    background: #0c0c0c !important; /* FIX: Dikunci hitam pekat murni anti bocor putih */
 }
 
 .page-btn {
