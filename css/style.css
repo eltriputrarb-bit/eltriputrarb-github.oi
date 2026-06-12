@@ -98,7 +98,6 @@ body {
     transition: all 0.4s ease-in-out !important;
 }
 
-/* Aktif via JS saat user melakukan scroll ke bawah */
 .container-navbar.navbar-scrolled {
     background: rgba(10, 10, 10, 0.98) !important;
     height: 70px !important;
