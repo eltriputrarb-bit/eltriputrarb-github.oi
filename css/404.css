@@ -38,10 +38,6 @@ body.no-scroll {
     height: 100vh !important;
 }
 
-html {
-    background-color: #ffffff !important; /* Mengunci base layer browser agar tetap putih premium */
-}
-
 body {
     background-color: #ffffff !important; /* Dasar halaman dikunci putih bersih premium */
     width: 100%;
@@ -60,17 +56,6 @@ body {
     align-items: center;
     padding: 120px 20px 60px 20px;
     background-color: #ffffff !important; /* Paksa area konten 404 berlatar belakang putih murni */
-}
-
-/* Container Wrapper Konten Tengah */
-.hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    max-width: 600px;
-    width: 100%;
-    text-align: center;
 }
 
 /* ==========================================================================
@@ -183,6 +168,7 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    /* FIX ANDROID LAYER: Di-set ke kasta tertinggi di atas sidebar gelap menu */
     .menu-toggle {
         display: flex !important;
         flex-direction: column !important;
@@ -190,12 +176,13 @@ body {
         align-items: center !important;
         gap: 6px !important;
         cursor: pointer !important;
-        z-index: 100002 !important;
+        z-index: 100005 !important;
         padding: 10px !important;
         background: transparent !important;
         border: none !important;
         width: 45px !important;
         height: 45px !important;
+        position: relative !important;
     }
     
     .menu-toggle span {
@@ -204,16 +191,18 @@ body {
         height: 3px !important; 
         background-color: #0088cc !important;
         border-radius: 2px !important; 
-        transition: all 0.3s ease !important;
-        box-shadow: 0 0 8px rgba(0, 136, 204, 0.7);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 0 8px rgba(0, 136, 204, 0.7) !important;
     }
     
+    /* FIX ANTI-SAMAR: Saat aktif jadi X di atas menu hitam, dipaksa bersinar putih solid terang */
     .menu-toggle.is-active span {
         background-color: #ffffff !important;
-        box-shadow: none !important;
+        background: #ffffff !important;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.9) !important;
     }
     .menu-toggle.is-active span:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
-    .menu-toggle.is-active span:nth-child(2) { opacity: 0 !important; }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0 !important; transform: scale(0) !important; }
     .menu-toggle.is-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
 
     .ul-navbar {
@@ -268,7 +257,6 @@ body {
     justify-content: center;
     align-items: center;
     margin-bottom: 20px;
-    background: transparent !important;
 }
 
 /* Tiang Penyangga Ayunan: Diubah kontras abu-abu tegas agar keliatan di background putih */

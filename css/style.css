@@ -32,9 +32,9 @@
 @keyframes slide-up { from { transform: translateY(30px); } to { transform: translateY(0); } }
 
 body {
-    background-color: #0c0c0c !important; /* Kembalikan hitam pekat gahar */
+    background-color: #0c0c0c !important;
     font-family: 'Montserrat', sans-serif;
-    color: #ffffff !important;
+    color: #ffffff;
     margin: 0;
     padding: 0;
     width: 100%;
@@ -49,7 +49,7 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    /* Gabungan background linear gelap gahar */
+    /* FIX: Digabung jadi satu kesatuan deklarasi yang bersih & anti-lag */
     background: linear-gradient(rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.85)), 
                 url('../image/es.jpg') no-repeat center center fixed !important;
     background-size: cover !important;
@@ -157,86 +157,105 @@ body {
         padding: 10px 20px;
         height: 70px;
     }
+    
+    /* FIX ANDROID: Naikkan kasta z-index toggle di atas .ul-navbar (10005 > 10001) */
     .menu-toggle { 
-        display: flex; 
-        flex-direction: column;
-        gap: 5px;
-        cursor: pointer;
-        z-index: 10001; 
+        display: flex !important; 
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        gap: 5px !important;
+        cursor: pointer !important;
+        width: 35px !important;
+        height: 35px !important;
+        z-index: 10005 !important; 
+        position: relative !important;
     }
+    
     .menu-toggle span {
-        display: block;
-        width: 30px;
-        height: 3px;
-        background: white;
-        border-radius: 10px;
-        transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+        display: block !important;
+        width: 30px !important;
+        height: 3px !important;
+        background: #ffffff !important;
+        border-radius: 10px !important;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease !important;
     }
+    
+    /* UPDATE ANIMASI SILANG (X PUTIH BERSIH + GLOW SEGAR) */
     .menu-toggle.is-active span {
-        background: #ffffff !important; 
-        box-shadow: none !important; 
+        background: #ffffff !important; /* Paksa semua garis jadi putih solid saat aktif */
+        box-shadow: 0 0 8px rgba(255, 255, 255, 0.9) !important; /* Efek neon putih biar ga ketelan background hitam */
     }
 
+    /* Pergerakan presisi membentuk huruf X sempurna tanpa lompat */
     .menu-toggle.is-active span:nth-child(1) { 
         transform: translateY(8px) rotate(45deg) !important; 
     }
     .menu-toggle.is-active span:nth-child(2) { 
-        opacity: 0 !important; 
+        opacity: 0 !important;
+        transform: scale(0) !important;
     }
     .menu-toggle.is-active span:nth-child(3) { 
         transform: translateY(-8px) rotate(-45deg) !important; 
     }
 
+    /* KUNCI LAYER MENU MOBILE */
     .ul-navbar {
-        position: fixed;
-        top: 0; 
+        position: fixed !important;
+        top: 0 !important; 
         right: -100%;
-        width: 300px; 
-        height: 100vh;
-        background: #0f0f0f;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start; 
-        padding-top: 100px; 
-        align-items: center;
-        gap: 15px;
-        transition: 0.5s ease;
+        width: 300px !important; 
+        height: 100vh !important;
+        background: #0f0f0f !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-start !important; 
+        padding-top: 100px !important; 
+        align-items: center !important;
+        gap: 15px !important;
+        transition: right 0.5s cubic-bezier(0.4, 0, 0.2, 1) !important;
         border-top-left-radius: 40px;
         border-bottom-left-radius: 40px;
         list-style: none;
+        z-index: 10001 !important; /* Terkunci di bawah lapisan tombol toggle */
+        box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6) !important;
     }
+    
     .ul-navbar.active { 
-        right: 0; 
+        right: 0 !important; 
     }
+    
     .menu-item-btn {
-        display: flex;
-        align-items: center;
-        gap: 15px;
+        display: flex !important;
+        align-items: center !important;
+        gap: 15px !important;
         background: rgba(255, 255, 255, 0.05) !important;
         padding: 15px 25px !important;
-        width: 250px;
-        border-radius: 50px;
+        width: 250px !important;
+        border-radius: 50px !important;
         color: white !important;
-        text-decoration: none;
-        font-size: 14px;
-        font-weight: 700;
+        text-decoration: none !important;
+        font-size: 14px !important;
+        font-weight: 700 !important;
         border: none !important;
     }
+    
     .menu-item-btn i { 
         display: inline-block !important; 
-        color: #0088cc;
-        font-size: 16px;
+        color: #0088cc !important;
+        font-size: 16px !important;
     }
+    
     .active-btn { 
         background: #0061f2 !important; 
     }
 }
 
 /* ==========================================================================
-   5. PROFILE & BIODATA AREA (DARK TRANS-GLASSMORPHISM)
+   5. PROFILE & BIODATA AREA (GLASSMORPHISM TRICK)
    ========================================================================== */
 .profile-section {
-    background-color: #0c0c0c !important; /* FIX: Ubah dari transparent ke hitam gahar biar ga bocor putih */
+    background-color: transparent !important;
     padding: 60px 10%;
     color: #ffffff !important;
 }
@@ -306,7 +325,7 @@ body {
 }
 
 /* ==========================================================================
-   6. WORLD CLOCK SYSTEM (DARK GLOW THEME)
+   6. WORLD CLOCK SYSTEM (4 CITIES INTERNATIONALLY ALIGNED)
    ========================================================================== */
 .world-clock-container {
     display: flex;
@@ -315,10 +334,10 @@ body {
     gap: 15px;
     padding: 25px 30px;
     flex-wrap: nowrap;
-    background: rgba(11, 21, 40, 0.4) !important; 
+    background: rgba(11, 21, 40, 0.4);
     border-radius: 16px;
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
     max-width: 800px;
     margin: 50px auto;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -332,19 +351,19 @@ body {
     min-width: 140px;
     padding: 12px;
     border-radius: 10px;
-    background: rgba(255, 255, 255, 0.02) !important;
+    background: rgba(255, 255, 255, 0.02);
     transition: transform 0.3s ease, background 0.3s ease;
 }
 
 .clock-card:hover {
-    background: rgba(255, 255, 255, 0.05) !important;
+    background: rgba(255, 255, 255, 0.05);
     transform: translateY(-5px);
 }
 
 .city-name {
     font-size: 0.8rem;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.6) !important;
+    color: rgba(255, 255, 255, 0.6);
     letter-spacing: 2px;
     margin-bottom: 8px;
     text-transform: uppercase;
@@ -353,14 +372,14 @@ body {
 .time-display {
     font-size: 1.75rem;
     font-weight: 700;
-    color: #ffffff !important;
+    color: #ffffff;
     text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
     font-family: 'Courier New', monospace;
 }
 
 .date-display {
     font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.4) !important;
+    color: rgba(255, 255, 255, 0.4);
     margin-top: 5px;
 }
 
@@ -378,7 +397,7 @@ body {
         min-width: auto;
         flex: 1;
         padding: 4px 2px;
-        background: rgba(255, 255, 255, 0.01) !important;
+        background: rgba(255, 255, 255, 0.01);
         border-radius: 6px;
     }
     .city-name {
@@ -397,12 +416,12 @@ body {
 }
 
 /* ==========================================================================
-   7. RPG SYSTEM DIGITAL SKILL CARD (DARK THEME)
+   7. RPG SYSTEM DIGITAL SKILL CARD
    ========================================================================== */
 .skills-section-wrapper {
     width: 100%;
     padding: 40px 0;
-    background: #0c0c0c !important; /* FIX: Ubah dari transparent ke hitam gahar biar ga bocor putih */
+    background: transparent;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -418,8 +437,8 @@ body {
 }
 
 .rpg-skill-card {
-    background: rgba(15, 23, 42, 0.4) !important;
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    background: rgba(15, 23, 42, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     padding: 20px;
     width: 260px;
@@ -436,8 +455,8 @@ body {
 
 .rpg-skill-card:hover {
     transform: translateY(-5px);
-    background: rgba(15, 23, 42, 0.6) !important;
-    border-color: rgba(76, 166, 76, 0.5) !important;
+    background: rgba(15, 23, 42, 0.6);
+    border-color: rgba(76, 166, 76, 0.5);
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
 }
 
@@ -471,13 +490,13 @@ body {
 .skill-title {
     font-size: 1.1rem;
     font-weight: 700;
-    color: #ffffff !important;
+    color: #ffffff;
     letter-spacing: 1px;
 }
 
 .card-level {
     font-size: 0.9rem;
-    color: #85bb65 !important;
+    color: #85bb65;
     font-weight: bold;
 }
 
@@ -519,20 +538,20 @@ body {
 }
 
 /* ==========================================================================
-   8. FOOTER DESIGN & INTERACTIVE SOCIAL MEDIA (PURE DARK)
+   8. FOOTER DESIGN & INTERACTIVE SOCIAL MEDIA
    ========================================================================== */
 .social-footer {
     background-color: rgba(0, 0, 0, 0.5) !important;
     padding: 30px 0; 
     text-align: center;
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .social-footer h3 {
     margin-bottom: 20px;
     font-family: 'Yellowtail', cursive; 
-    color: #ff8c00 !important;
+    color: #ff8c00;
     font-size: 28px;
     letter-spacing: 1px;
 }
@@ -553,7 +572,7 @@ body {
     border-radius: 50%; 
     text-decoration: none;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .social-icons a i {
@@ -570,7 +589,7 @@ body {
 
 .social-icons a.x-logo {
     background-color: #000000 !important; 
-    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .social-icons a.x-logo:hover {
     background-color: #ffffff !important; 
@@ -578,7 +597,7 @@ body {
     transform: translateY(-4px) scale(1.05);
 }
 .social-icons a.x-logo:hover .svg-x { fill: #000000 !important; }
-.social-icons a.x-logo .svg-x { fill: #ffffff !important; width: 22px; height: 22px; transition: 0.3s; }
+.social-icons a.x-logo .svg-x { fill: #ffffff; width: 22px; height: 22px; transition: 0.3s; }
 
 .main-footer {
     text-align: center;
@@ -587,7 +606,7 @@ body {
     color: #ffffff !important;
     font-size: 13px;
     width: 100%;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 /* GREEN ONLINE INDICATOR DOT */
@@ -613,7 +632,6 @@ body {
     transform: translate(-50%, -50%);
     animation: pulseEffect 2s infinite ease-in-out;
 }
-
 @keyframes pulseEffect {
     0% { width: 100%; height: 100%; opacity: 0.8; }
     100% { width: 300%; height: 300%; opacity: 0; }

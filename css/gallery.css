@@ -38,15 +38,12 @@ body.no-scroll {
     height: 100vh !important;
 }
 
-html {
-    background-color: #0c0c0c !important; /* Kunci dasar paling bawah sebelum body */
-}
-
 body {
-    background-color: #0c0c0c !important; /* Hitam murni gahar wajib utama */
+    background-color: #0c0c0c !important; /* Hitam murni gahar */
     background: linear-gradient(rgba(12, 12, 12, 0.88), rgba(12, 12, 12, 0.94)), 
-                url('../image/es.jpg') no-repeat center center fixed !important;
+                url('../image/es.jpg') no-repeat center center !important;
     background-size: cover !important;
+    background-attachment: fixed !important;
     font-family: 'Montserrat', sans-serif !important;
     color: #ffffff !important;
     min-height: 100vh;
@@ -163,6 +160,7 @@ body {
 }
 
 @media screen and (max-width: 768px) {
+    /* FIX ANDROID LAYER: Di-set ke kasta tertinggi di atas sidebar menu */
     .menu-toggle {
         display: flex !important;
         flex-direction: column !important;
@@ -170,12 +168,13 @@ body {
         align-items: center !important;
         gap: 6px !important;
         cursor: pointer !important;
-        z-index: 100002 !important;
+        z-index: 100005 !important;
         padding: 10px !important;
         background: transparent !important;
         border: none !important;
         width: 45px !important;
         height: 45px !important;
+        position: relative !important;
     }
     
     .menu-toggle span {
@@ -184,16 +183,19 @@ body {
         height: 3px !important; 
         background-color: #0088cc !important;
         border-radius: 2px !important; 
-        transition: all 0.3s ease !important;
-        box-shadow: 0 0 8px rgba(0, 136, 204, 0.7);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+        box-shadow: 0 0 8px rgba(0, 136, 204, 0.7) !important;
     }
     
+    /* FIX ANTI-SAMAR ANDROID: Saat aktif jadi X, dipaksa putih solid bersinar terang */
     .menu-toggle.is-active span {
         background-color: #ffffff !important;
-        box-shadow: none !important;
+        background: #ffffff !important;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.9) !important;
     }
+    
     .menu-toggle.is-active span:nth-child(1) { transform: translateY(9px) rotate(45deg) !important; }
-    .menu-toggle.is-active span:nth-child(2) { opacity: 0 !important; }
+    .menu-toggle.is-active span:nth-child(2) { opacity: 0 !important; transform: scale(0) !important; }
     .menu-toggle.is-active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg) !important; }
 
     .ul-navbar {
@@ -212,7 +214,7 @@ body {
         border-top-left-radius: 30px !important; 
         border-left: 1px solid rgba(0, 136, 204, 0.2) !important;
         list-style: none !important; 
-        z-index: 100010 !important; /* Dinaikkan sedikit untuk menghindari collision */
+        z-index: 100001 !important; /* Berada tepat di bawah tombol X */
         box-shadow: -10px 0 30px rgba(0,0,0,0.8) !important;
     }
     
@@ -246,7 +248,6 @@ body {
     padding: 0 20px;
     opacity: 0;
     animation: fadeInGallery 0.3s linear forwards;
-    background-color: #0c0c0c !important; /* Proteksi warna dasar container */
 }
 @keyframes fadeInGallery { to { opacity: 1; } }
 
@@ -259,7 +260,6 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
-    background: transparent !important;
 }
 
 .gallery-card {
@@ -289,28 +289,32 @@ body {
     position: relative !important;
     width: 100% !important;
     height: 250px !important;
-    background: #000000 !important; /* Hitam pekat saat media loading */
+    background: #000000 !important;
     overflow: hidden !important;
     display: block !important;
     transform: translateZ(0);
 }
 
+/* Keadaan Normal: Efek transition dipindah ke sini agar hover-out tetap halus */
 .card-img-wrapper img,
 .card-img-wrapper video {
     position: absolute !important;
-    top: 50% !important; left: 50% !important;
-    transform: translate(-50%, -50%) !important;
-    width: 100% !important; height: 100% !important;
+    top: 50% !important; 
+    left: 50% !important;
+    transform: translate(-50%, -50%) scale(1) !important; /* Bersih tanpa titik koma liar */
+    width: 100% !important; 
+    height: 100% !important;
     object-fit: cover !important;
     display: block !important;
     cursor: zoom-in;
     will-change: transform;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
 }
 
+/* Keadaan Hover: Hanya bertugas menaikkan skala gambar/video */
 .gallery-card:hover .card-img-wrapper img,
 .gallery-card:hover .card-img-wrapper video {
     transform: translate(-50%, -50%) scale(1.03) !important;
-    transition: transform 0.25s ease;
 }
 
 /* ==========================================================================
@@ -493,7 +497,7 @@ video::-webkit-media-controls-enclosure {
     font-family: 'Montserrat', sans-serif !important;
     user-select: none !important;
     clear: both !important;
-    background: #0c0c0c !important; /* FIX MUTLAK: Dipaksa hitam agar area bawah pagination ga tembus putih browser */
+    background: transparent !important; /* Bersih anti bocor putih */
 }
 
 .page-btn {
@@ -558,9 +562,4 @@ video::-webkit-media-controls-enclosure {
         gap: 6px !important;
         margin-top: 50px !important;
     }
-}
-
-@keyframes pulseEffect {
-    0% { width: 100%; height: 100%; opacity: 0.8; }
-    100% { width: 300%; height: 300%; opacity: 0; }
 }
