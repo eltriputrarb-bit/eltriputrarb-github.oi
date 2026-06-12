@@ -50,14 +50,25 @@ body {
     position: relative;
     width: 100%;
     height: 100vh;
-    /* FIX: Digabung jadi satu kesatuan deklarasi yang bersih & anti-lag */
+    /* BENTENG PERTAMA: Kasih warna hitam solid sebagai dasar mutlak */
+    background-color: #0c0c0c !important; 
+    
+    /* DEFAULT UNTUK HP: Menggunakan 'scroll' agar super lancar & anti-bocor putih */
     background: linear-gradient(rgba(12, 12, 12, 0.4), rgba(12, 12, 12, 0.85)), 
-                url('../image/es.jpg') no-repeat center center fixed !important;
+                url('../image/es.jpg') no-repeat center center scroll !important;
     background-size: cover !important;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+}
+
+/* KHUSUS LAPTOP/DESKTOP (Layar Lebar) */
+@media screen and (min-width: 769px) {
+    .hero {
+        /* Di laptop baru kita aktifkan efek 'fixed' karena CPU laptop kuat melibasnya */
+        background-attachment: fixed !important;
+    }
 }
 
 /* Efek shadow teks biar nama Lu makin menyala gahar */
